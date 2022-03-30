@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "8ce98d2a-8b4d-40a0-8d4b-e5f676313fb2",
+		"name": "MiniAssignment1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetCall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"response=pm.response.json();\r",
+							"//console.log(response);\r",
+							"person=response.find(item => item.id === 40)\r",
+							"pm.test(\"User with id 40 has userid 4\",() =>{\r",
+							"    pm.expect(person.userId).to.eql(4);\r",
+							"});\r",
+							"//console.log(typeof response[].title);\r",
+							"pm.test(\"datatype of title is string\",() =>{\r",
+							"    pm.expect(typeof response[3].title).to.eq(\"string\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{json-domain}}",
+					"host": [
+						"{{json-domain}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostCall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"tests[\"contains name\"]=responseBody.has(data.name);\r",
+							"tests[\"contains job\"] = responseBody.has(data.job);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"job\":\"{{job}}\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain-name}}/users ",
+					"host": [
+						"{{domain-name}}"
+					],
+					"path": [
+						"users "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutCall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"contains Arun\"]=responseBody.has(\"Arun\");\r",
+							"tests[\"contains Manager\"]=responseBody.has(\"Manager\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Arun\",\r\n    \"job\":\"Manager\"\r\n}"
+				},
+				"url": {
+					"raw": "{{domain-name}}/users/ ",
+					"host": [
+						"{{domain-name}}"
+					],
+					"path": [
+						"users",
+						" "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCall",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Deleting the database\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{json-domain}}/1 ",
+					"host": [
+						"{{json-domain}}"
+					],
+					"path": [
+						"1 "
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
